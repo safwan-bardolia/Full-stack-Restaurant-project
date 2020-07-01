@@ -30,11 +30,17 @@ public class LoggingAspect {
 	@Pointcut("execution(* com.Restaurant.DAO.*.*(..))")
 	public void forDAO() {}
 	
+	//	pointcut declaration for Annotation (i.e custome annotation)
 	@Pointcut("execution(* com.Restaurant.Annotation.*.*(..))")
 	public void forAnnotation() {}
 	
+	// pointcut declaration for Config (i.e Spring security)
+	@Pointcut("execution(* com.Restaurant.Config.*.*(..))")
+	public void forConfig() {}
+	
+	
 	//	combining all pointcut together
-	@Pointcut("forController() || forService() || forDAO() || forAnnotation()")
+	@Pointcut("forController() || forService() || forDAO() || forAnnotation() || forConfig()")
 	public void appFlow() {}
 	
 	

@@ -17,10 +17,12 @@ public class Booking {
 	
 	@NotNull(message = "!name should not be empty")
 	@Size(min = 3, message = "!name is too small")
+	@Size(max = 30, message = "!name is too large")
 	private String name; 
 
 	@NotNull(message = "!email should not be empty")
 	@Size(min = 6, message = "!not a valid email")
+	@Size(max = 30, message = "!email is too large")
 	private String email;
 
 	@NotNull(message = "!phone no should not be empty")
@@ -29,10 +31,12 @@ public class Booking {
 	
 	@NotNull(message = "!date should not be empty")
 	@Size(min = 6, message = "!not a valid date")
+	@Size(max = 15, message = "!Invalid date")
 	private String date;
 
 	@NotNull(message = "!time should not be empty")
 	@Size(min = 6, message = "!not a valid time")
+	@Size(max = 15, message = "!Invalid time")
 	private String time;
 	
 	@NotNull(message = "!person should not be empty")

@@ -22,10 +22,12 @@ public class Employee {
 	
 	@NotNull(message = "Name should not be empty")	//NotNull will interact with initBinder, without initBinder this msg is not shown 
 	@Size(min = 3, message = "Name must be greater than 6 character")
+	@Size(max = 255, message = "!too large")		//always use this this validation to avoid sql exception at run time
 	private String name;
 
 	@NotNull(message = "email should not be empty")	
 	@Size(min = 6, message = "email must be greater than 6 character")
+	@Size(max = 50, message = "!too large")
 	private String email;
 	
 	@NotNull(message = "required")
@@ -34,7 +36,8 @@ public class Employee {
 	private Integer age;
 	
 	@NotNull(message = "Location should not be empty")
-	@Size(min = 6, message = "Location must be greater than 6 character")	
+	@Size(min = 6, message = "Location must be greater than 6 character")
+	@Size(max = 50, message = "!too large")
 	private String city;
 	
 	public int getId() {
