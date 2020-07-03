@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:security="http://www.springframework.org/schema/security"
+ xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+  <!-- In the <http> or (<security:http>) element, we declare which URL pattern will be intercepted by Spring security filter, using the <intercept-url> element. 
+  	   As per this configuration, all the URL patterns /** are secured, 
+       and only the users having role ROLE_ADMIN can be authorized to access these URLs.  -->	
+  
+  <!-- default login-processing-url  is "login", login-processing-url is where we post our login-form -->
+  
+ <security:http>
+  <security:intercept-url pattern="/loginPage" access="permitAll"/>
+  <security:intercept-url pattern="/employee/*" access="hasRole('ADMIN')" />
+  <security:intercept-url pattern="/**" access="isAuthenticated()" />
+  <security:form-login
+  	login-page="/loginPage"
+  	login-processing-url="/validateLogin"    
+  />
+  <security:access-denied-handler error-page="/403" />
+  <security:logout logout-url="/logout" logout-success-url="/loginPage?logout" delete-cookies="JSESSIONID" invalidate-session="true"/>
+ </security:http>
+
+
+  <!-- The <authentication-manager> element declares a user with username, password and role (ROLE_ADMIN per this configuration). 
+  This user can be authenticated to access the application. -->		
+	
+  <security:authentication-manager>
+  	<security:authentication-provider>
+   		<security:user-service>
+    		<security:user name="admin" password="{noop}adminpassword" authorities="ROLE_ADMIN" />
+    		<security:user name="user" password="{noop}password" authorities="ROLE_USER" />
+   		</security:user-service>
+  	</security:authentication-provider>
+ </security:authentication-manager>
+
+</beans>

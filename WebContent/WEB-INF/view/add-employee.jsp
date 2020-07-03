@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,11 +87,12 @@
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#menu" class="nav-link">Menu</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/employee/list" class="nav-link">Admin</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-					<li class="nav-item cta"><a
-						href="${pageContext.request.contextPath}/booking/tableBooking"
-						class="nav-link">Book a table</a></li>
+					<li class="nav-item cta"><a	href="${pageContext.request.contextPath}/booking/tableBooking" class="nav-link">Book a table</a></li>
 				</ul>
+				
+				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+						<input type="submit" value="logout" class="btn btn-danger" style="position: absolute;right: 10px;bottom: 8px;">
+				</form:form>
 			</div>
 		</div>
 	</nav>

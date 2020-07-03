@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,9 +93,13 @@
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#menu" class="nav-link">Menu</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">Admin</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
 					<li class="nav-item cta"><a href="${pageContext.request.contextPath}/booking/tableBooking"	class="nav-link">Book a table</a></li>
 				</ul>
+
+				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+						<input type="submit" value="logout" class="btn btn-danger" style="position: absolute;right: 10px;bottom: 8px;">
+				</form:form>
+				
 			</div>
 		</div>
 	</nav>
