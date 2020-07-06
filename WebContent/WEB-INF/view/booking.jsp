@@ -133,7 +133,7 @@
 						</div>
 
 						<form:form modelAttribute="booking" action="validateBooking"
-							class="ui form error">
+							class="ui form error" method="POST">
 							<div class="row">
 
 								<div class="col-md-6">
@@ -164,7 +164,7 @@
 									<div class="form-group">
 										<label for="">Date</label>
 										<form:input path="date" type="text" class="form-control"
-											id="book_date" placeholder="Date" />
+											id="book_date" placeholder="Date" autocomplete="off" />
 										<form:errors path="date" class="ui error message" />
 									</div>
 								</div>

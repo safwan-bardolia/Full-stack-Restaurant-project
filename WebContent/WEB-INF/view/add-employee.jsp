@@ -129,7 +129,7 @@
 							<h2 class="mb-4">Register Employee</h2>
 						</div>
 						<form:form modelAttribute="employee" action="validateEmployee"
-							class="ui form error">
+							class="ui form error" method="POST">
 
 							<!-- need to define id part otherwise in case of update also, new record is created with new id  -->
 							<!-- this code is simply defined we are using existing record id in case of update -->

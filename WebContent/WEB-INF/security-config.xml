@@ -9,15 +9,28 @@
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- Step 1: Define Database DataSource / connection pool -->
+	<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3300/restaurant?useSSL=false&amp;serverTimezone=UTC" />
+        <property name="user" value="root" />
+        <property name="password" value="safwan" /> 
 
-  <!-- In the <http> or (<security:http>) element, we declare which URL pattern will be intercepted by Spring security filter, using the <intercept-url> element. 
-  	   As per this configuration, all the URL patterns /** are secured, 
-       and only the users having role ROLE_ADMIN can be authorized to access these URLs.  -->	
-  
+        <!-- these are connection pool properties for C3P0 -->
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="20" />
+        <property name="maxIdleTime" value="30000" />
+	</bean>  
+	
+
+  <!-- In the <http> or (<security:http>) element, we declare which URL pattern will be intercepted by Spring security filter, using the <intercept-url> element. -->	
   <!-- default login-processing-url  is "login", login-processing-url is where we post our login-form -->
   
  <security:http>
   <security:intercept-url pattern="/loginPage" access="permitAll"/>
+  <security:intercept-url pattern="/signup" access="permitAll" />
+  <security:intercept-url pattern="/validateSignup" access="permitAll" />
   <security:intercept-url pattern="/employee/*" access="hasRole('ADMIN')" />
   <security:intercept-url pattern="/**" access="isAuthenticated()" />
   <security:form-login
@@ -34,11 +47,10 @@
 	
   <security:authentication-manager>
   	<security:authentication-provider>
-   		<security:user-service>
-    		<security:user name="admin" password="{noop}adminpassword" authorities="ROLE_ADMIN" />
-    		<security:user name="user" password="{noop}password" authorities="ROLE_USER" />
-   		</security:user-service>
-  	</security:authentication-provider>
+ 		<security:jdbc-user-service data-source-ref="myDataSource"
+ 			users-by-username-query="select username,password,enabled from users where username=?"
+ 			authorities-by-username-query="select username,authority from authorities where username= ?" />
+ 	</security:authentication-provider>
  </security:authentication-manager>
 
 </beans>

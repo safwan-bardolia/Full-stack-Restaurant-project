@@ -62,7 +62,7 @@ public class EmployeeController {
 	
 	
 	@PostMapping("/validateEmployee")
-	public String validateEmployee(@Valid @ModelAttribute Employee employee, BindingResult bindingResult) {
+	public String validateEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult) {
 		
 		System.out.println(bindingResult);
 		

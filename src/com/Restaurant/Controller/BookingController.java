@@ -42,7 +42,7 @@ public class BookingController {
 	}
 	
 	@PostMapping("/validateBooking")
-	public String validateBooking(@Valid @ModelAttribute Booking booking, BindingResult bindingResult) {
+	public String validateBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult bindingResult) {
 		
 		System.out.println(bindingResult);
 		

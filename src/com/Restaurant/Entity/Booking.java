@@ -26,8 +26,8 @@ public class Booking {
 	private String email;
 
 	@NotNull(message = "!phone no should not be empty")
-	@Phone(message = "!Invalid phone number")				// custome annotation
-	private String phone;
+	@Phone(message = "!length of number must be 10(ignore zero)")				// custome annotation
+	private Long phone;
 	
 	@NotNull(message = "!date should not be empty")
 	@Size(min = 6, message = "!not a valid date")
@@ -66,11 +66,11 @@ public class Booking {
 		this.email = email;
 	}
 
-	public String getPhone() {
+	public Long getPhone() {
 		return phone;
 	}
 
-	public void setPhone(String phone) {
+	public void setPhone(Long phone) {
 		this.phone = phone;
 	}
 
@@ -98,8 +98,10 @@ public class Booking {
 		this.person = person;
 	}
 
-	
-
-	
+	@Override
+	public String toString() {
+		return "Booking [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", date=" + date
+				+ ", time=" + time + ", person=" + person + "]";
+	}
 	
 }

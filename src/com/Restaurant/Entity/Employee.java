@@ -36,7 +36,7 @@ public class Employee {
 	private Integer age;
 	
 	@NotNull(message = "Location should not be empty")
-	@Size(min = 6, message = "Location must be greater than 6 character")
+	@Size(min = 3, message = "invalid name")
 	@Size(max = 50, message = "!too large")
 	private String city;
 	
@@ -71,6 +71,12 @@ public class Employee {
 	public void setCity(String location) {
 		this.city = location;
 	}
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", email=" + email + ", age=" + age + ", city=" + city + "]";
+	}
+	
 	
 	
 }
