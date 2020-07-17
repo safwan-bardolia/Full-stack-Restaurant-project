@@ -91,13 +91,13 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/#menu" class="nav-link">Menu</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">Admin</a></li>
+					<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
 					<li class="nav-item cta"><a href="${pageContext.request.contextPath}/booking/tableBooking"	class="nav-link">Book a table</a></li>
 				</ul>
 
 				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-						<input type="submit" value="logout" class="btn btn-danger" style="position: absolute;right: 10px;bottom: 8px;">
+						<input type="submit" value="logout" class="btn btn-danger" id="logout" style="position: absolute;right: 10px;bottom: 8px;">
 				</form:form>
 				
 			</div>
@@ -307,6 +307,7 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="../js/google-map.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/logout.js"></script>
 
 	<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
 	<script type="text/javascript"
@@ -317,6 +318,7 @@
 			$("#datatable").DataTable();
 		})
 	</script>
+	
 
 
 </body>

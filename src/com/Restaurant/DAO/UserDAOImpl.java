@@ -44,12 +44,14 @@ public class UserDAOImpl implements UserDAO {
 		// encode the password & save to the object		
 		user.setPassword("{bcrypt}"+ BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 		
+		// save in users table
 		session.save(user);
 		
 		Authorities authorities = new Authorities();
 		authorities.setUsername(user.getUsername());
 		System.out.println(authorities);
 		
+		// save in authorities table 
 		session.save(authorities);
 	}
 

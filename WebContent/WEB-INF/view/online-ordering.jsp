@@ -1,15 +1,18 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Feliciano - Free Bootstrap 4 Template by Colorlib</title>
+<title>order online</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
@@ -17,6 +20,13 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap"
 	rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
 
 <link rel="stylesheet" href="../css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="../css/animate.css">
@@ -36,6 +46,9 @@
 <link rel="stylesheet" href="../css/flaticon.css">
 <link rel="stylesheet" href="../css/icomoon.css">
 <link rel="stylesheet" href="../css/style.css">
+
+
+
 </head>
 <body>
 	<div class="py-1 bg-black top">
@@ -84,15 +97,23 @@
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/employee/list" class="nav-link">Admin</a></li>
-					<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
-					<li class="nav-item cta"><a	href="${pageContext.request.contextPath}/booking/tableBooking" class="nav-link">Book a table</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>	
+					<security:authorize access="hasRole('ADMIN')">
+						<li class="nav-item"><a	href="${pageContext.request.contextPath}/employee/list"	class="nav-link">Admin</a></li>
+					</security:authorize>					
+					<li class="nav-item"><a	href="#" class="nav-link">Order Online</a></li>
+					<li class="nav-item cart">
+						<a class="nav-link" href="${pageContext.request.contextPath}/online/cart">
+							<span class="glyphicon glyphicon-shopping-cart"></span> cart <span id="cart-count">0</span>
+						</a>
+					</li>
+					<li class="nav-item cta"><a href="${pageContext.request.contextPath}/booking/tableBooking"	class="nav-link">Book a table</a></li>
 				</ul>
-				
+
 				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
 						<input type="submit" value="logout" class="btn btn-danger" id="logout" style="position: absolute;right: 10px;bottom: 8px;">
 				</form:form>
+				
 			</div>
 		</div>
 	</nav>
@@ -106,11 +127,10 @@
 			<div
 				class="row no-gutters slider-text align-items-end justify-content-center">
 				<div class="col-md-9 ftco-animate text-center mb-4">
-					<h1 class="mb-2 bread">Add a Employee</h1>
+					<h1 class="mb-2 bread">Order Online</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a
-							href="${pageContext.request.contextPath}/">Home <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>Admin <i
+						<span class="mr-2"><a href="${pageContext.request.contextPath}/">Home <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>Order<i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
 				</div>
@@ -118,69 +138,181 @@
 		</div>
 	</section>
 
-	<section class="ftco-section ftco-no-pt ftco-no-pb">
-		<div class="container-fluid px-0">
-			<div class="row d-flex no-gutters">
-				<div
-					class="col-md-12 order-md-last ftco-animate makereservation p-4 p-md-5 pt-5">
-					<div class="py-md-5">
-						<div class="heading-section ftco-animate mb-5">
-							<span class="subheading">Add a Employee</span>
-							<h2 class="mb-4">Register Employee</h2>
-						</div>
-						<form:form modelAttribute="employee" action="validateEmployee"
-							class="ui form error" method="POST">
-
-							<!-- need to define id part otherwise in case of update also, new record is created with new id  -->
-							<!-- this code is simply defined we are using existing record id in case of update -->
-							<form:hidden path="id" />
-
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="">Name</label>
-										<form:input path="name" type="text" class="form-control"
-											placeholder="Your Name" />
-										<form:errors path="name" class="ui error message" />
+	<section class="ftco-section" id="menu">
+		<div class="container">
+			<div class="row no-gutters justify-content-center mb-5 pb-2">
+				<div class="col-md-12 text-center heading-section ftco-animate">
+					<span class="subheading">Specialties</span>
+					<h2 class="mb-4">Our Menu</h2>
+				</div>
+			</div>
+			
+			<div class="row no-gutters d-flex align-items-stretch">
+			
+				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
+					<div class="menus d-sm-flex ftco-animate align-items-stretch">
+						<div class="menu-img img"
+							style="background-image: url(../images/breakfast-1.jpg);"></div>
+						<div class="text d-flex align-items-center">
+							<div>
+								<div class="d-flex">
+									<div class="one-half">
+										<h3>Grilled Beef with potatoes</h3>
+									</div>
+									<div class="one-forth">
+										<span class="price">$10</span>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="">Email</label>
-										<form:input path="email" type="text" class="form-control"
-											placeholder="Your Email" />
-										<form:errors path="email" class="ui error message" />
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="">Age</label>
-										<form:input path="age" type="text" class="form-control"
-											placeholder="Age" />
-										<form:errors path="age" class="ui error message" />
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="">City</label>
-										<form:input path="city" type="text" class="form-control"
-											placeholder="City" />
-										<form:errors path="city" class="ui error message" />
-									</div>
-								</div>
-								<div class="col-md-12 mt-3">
-									<div class="form-group">
-										<input type="submit" value="Register Employee"
-											class="btn btn-primary py-3 px-5">
-									</div>
-								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
+								<p>
+									<a href="#" class="btn btn-primary add-cart cart1">Order now</a>
+								</p>
 							</div>
-						</form:form>
+																		<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+						</div>
 					</div>
 				</div>
+			
+				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
+					<div class="menus d-sm-flex ftco-animate align-items-stretch">
+						<div class="menu-img img"
+							style="background-image: url(../images/breakfast-2.jpg);">
+						</div>
+						<div class="text d-flex align-items-center">
+							<div>
+								<div class="d-flex">
+									<div class="one-half">
+										<h3>Grilled Beef with potatoes</h3>
+									</div>
+									<div class="one-forth">
+										<span class="price">$20</span>
+									</div>
+								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
+								<p>
+									<a href="#" class="btn btn-primary add-cart cart2">Order now</a>
+								</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
+					<div class="menus d-sm-flex ftco-animate align-items-stretch">
+						<div class="menu-img img order-md-last"
+							style="background-image: url(../images/breakfast-3.jpg);"></div>
+						<div class="text d-flex align-items-center">
+							<div>
+								<div class="d-flex">
+									<div class="one-half">
+										<h3>Grilled Beef with potatoes</h3>
+									</div>
+									<div class="one-forth">
+										<span class="price">$30</span>
+									</div>
+								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
+								<p>
+									<a href="#" class="btn btn-primary add-cart cart3">Order now</a>
+								</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
+					<div class="menus d-sm-flex ftco-animate align-items-stretch">
+						<div class="menu-img img order-md-last"
+							style="background-image: url(../images/breakfast-4.jpg);"></div>
+						<div class="text d-flex align-items-center">
+							<div>
+								<div class="d-flex">
+									<div class="one-half">
+										<h3>Grilled Beef with potatoes</h3>
+									</div>
+									<div class="one-forth">
+										<span class="price">$40</span>
+									</div>
+								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
+								<p>
+									<a href="#" class="btn btn-primary add-cart cart4">Order now</a>
+								</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
+					<div class="menus d-sm-flex ftco-animate align-items-stretch">
+						<div class="menu-img img"
+							style="background-image: url(../images/breakfast-5.jpg);"></div>
+						<div class="text d-flex align-items-center">
+							<div>
+								<div class="d-flex">
+									<div class="one-half">
+										<h3>Grilled Beef with potatoes</h3>
+									</div>
+									<div class="one-forth">
+										<span class="price">$50</span>
+									</div>
+								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
+								<p>
+									<a href="#" class="btn btn-primary add-cart cart5">Order now</a>
+								</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
+					<div class="menus d-sm-flex ftco-animate align-items-stretch">
+						<div class="menu-img img"
+							style="background-image: url(../images/breakfast-6.jpg);"></div>
+						<div class="text d-flex align-items-center">
+							<div>
+								<div class="d-flex">
+									<div class="one-half">
+										<h3>Grilled Beef with potatoes</h3>
+									</div>
+									<div class="one-forth">
+										<span class="price">$60</span>
+									</div>
+								</div>
+								<p>
+									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
+								</p>
+								<p>
+									<a href="#" class="btn btn-primary add-cart cart6">Order now</a>
+								</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</section>
+
+	<!-- cart content  -->
+	<div class="select">
+	</div>
 
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
 		<div class="container">
@@ -287,7 +419,8 @@
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
 
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="../js/popper.min.js"></script>
@@ -306,7 +439,9 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="../js/google-map.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/cart.js"></script>
 	<script src="../js/logout.js"></script>
+	
 
 </body>
-</html>
+</html>	

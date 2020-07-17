@@ -8,6 +8,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">	
+
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
 	rel="stylesheet">
@@ -82,15 +84,20 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="#menu" class="nav-link">Menu</a></li>
 					<security:authorize access="hasRole('ADMIN')">
 						<li class="nav-item"><a	href="${pageContext.request.contextPath}/employee/list"	class="nav-link">Admin</a></li>
 					</security:authorize>
-					<li class="nav-item cta"><a	href="${pageContext.request.contextPath}/booking/tableBooking" class="nav-link">Book a table</a></li>										
+					<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
+					<li class="nav-item cart">
+						<a class="nav-link" href="${pageContext.request.contextPath}/online/cart">
+							<span class="glyphicon glyphicon-shopping-cart"></span> cart <span id="cart-count">0</span>
+						</a>
+					</li>															
+					<li class="nav-item cta"><a	href="${pageContext.request.contextPath}/booking/tableBooking" class="nav-link">Book a table</a></li>
 				</ul>
 				
 				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-						<input type="submit" value="logout" class="btn btn-danger" style="position: absolute;right: 10px;bottom: 8px;">
+						<input type="submit" value="logout" class="btn btn-danger" id="logout" style="position: absolute;right: 10px;bottom: 16px;font-size: medium;">
 				</form:form>
 				
 			</div>
@@ -345,164 +352,6 @@
 		</div>
 	</section>
 
-	<section class="ftco-section" id="menu">
-		<div class="container">
-			<div class="row no-gutters justify-content-center mb-5 pb-2">
-				<div class="col-md-12 text-center heading-section ftco-animate">
-					<span class="subheading">Specialties</span>
-					<h2 class="mb-4">Our Menu</h2>
-				</div>
-			</div>
-			<div class="row no-gutters d-flex align-items-stretch">
-				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
-					<div class="menus d-sm-flex ftco-animate align-items-stretch">
-						<div class="menu-img img"
-							style="background-image: url(images/breakfast-1.jpg);"></div>
-						<div class="text d-flex align-items-center">
-							<div>
-								<div class="d-flex">
-									<div class="one-half">
-										<h3>Grilled Beef with potatoes</h3>
-									</div>
-									<div class="one-forth">
-										<span class="price">$29</span>
-									</div>
-								</div>
-								<p>
-									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-								</p>
-								<p>
-									<a href="#" class="btn btn-primary">Order now</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
-					<div class="menus d-sm-flex ftco-animate align-items-stretch">
-						<div class="menu-img img"
-							style="background-image: url(images/breakfast-2.jpg);"></div>
-						<div class="text d-flex align-items-center">
-							<div>
-								<div class="d-flex">
-									<div class="one-half">
-										<h3>Grilled Beef with potatoes</h3>
-									</div>
-									<div class="one-forth">
-										<span class="price">$29</span>
-									</div>
-								</div>
-								<p>
-									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-								</p>
-								<p>
-									<a href="#" class="btn btn-primary">Order now</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
-					<div class="menus d-sm-flex ftco-animate align-items-stretch">
-						<div class="menu-img img order-md-last"
-							style="background-image: url(images/breakfast-3.jpg);"></div>
-						<div class="text d-flex align-items-center">
-							<div>
-								<div class="d-flex">
-									<div class="one-half">
-										<h3>Grilled Beef with potatoes</h3>
-									</div>
-									<div class="one-forth">
-										<span class="price">$29</span>
-									</div>
-								</div>
-								<p>
-									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-								</p>
-								<p>
-									<a href="#" class="btn btn-primary">Order now</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
-					<div class="menus d-sm-flex ftco-animate align-items-stretch">
-						<div class="menu-img img order-md-last"
-							style="background-image: url(images/breakfast-5.jpg);"></div>
-						<div class="text d-flex align-items-center">
-							<div>
-								<div class="d-flex">
-									<div class="one-half">
-										<h3>Grilled Beef with potatoes</h3>
-									</div>
-									<div class="one-forth">
-										<span class="price">$29</span>
-									</div>
-								</div>
-								<p>
-									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-								</p>
-								<p>
-									<a href="#" class="btn btn-primary">Order now</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
-					<div class="menus d-sm-flex ftco-animate align-items-stretch">
-						<div class="menu-img img"
-							style="background-image: url(images/breakfast-6.jpg);"></div>
-						<div class="text d-flex align-items-center">
-							<div>
-								<div class="d-flex">
-									<div class="one-half">
-										<h3>Grilled Beef with potatoes</h3>
-									</div>
-									<div class="one-forth">
-										<span class="price">$29</span>
-									</div>
-								</div>
-								<p>
-									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-								</p>
-								<p>
-									<a href="#" class="btn btn-primary">Order now</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12 col-lg-6 d-flex align-self-stretch">
-					<div class="menus d-sm-flex ftco-animate align-items-stretch">
-						<div class="menu-img img"
-							style="background-image: url(images/breakfast-2.jpg);"></div>
-						<div class="text d-flex align-items-center">
-							<div>
-								<div class="d-flex">
-									<div class="one-half">
-										<h3>Grilled Beef with potatoes</h3>
-									</div>
-									<div class="one-forth">
-										<span class="price">$29</span>
-									</div>
-								</div>
-								<p>
-									<span>Meat</span>, <span>Potatoes</span>, <span>Rice</span>, <span>Tomatoe</span>
-								</p>
-								<p>
-									<a href="#" class="btn btn-primary">Order now</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
 	<section class="ftco-section">
 		<div class="container">
@@ -919,6 +768,8 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
-
+	<script src="js/cart-count.js"></script>
+	<script src="js/logout.js"></script>
+	
 </body>
 </html>

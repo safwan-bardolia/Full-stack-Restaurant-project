@@ -8,6 +8,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">		
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
@@ -86,15 +88,20 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a	href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/#menu" class="nav-link">Menu</a></li>
 					<security:authorize access="hasRole('ADMIN')">
 						<li class="nav-item"><a	href="${pageContext.request.contextPath}/employee/list"	class="nav-link">Admin</a></li>
 					</security:authorize>
+					<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
+					<li class="nav-item cart">
+						<a class="nav-link" href="${pageContext.request.contextPath}/online/cart">
+							<span class="glyphicon glyphicon-shopping-cart"></span> cart <span id="cart-count">0</span>
+						</a>
+					</li>															
 					<li class="nav-item cta"><a href="#" class="nav-link">Book a table</a></li>
 				</ul>
 				
 				<form:form action="${pageContext.request.contextPath}/logout">
-					<input type="submit" value="logout" class="btn btn-danger" style="position: absolute;right: 10px;bottom: 8px;" />
+					<input type="submit" value="logout" class="btn btn-danger" id="logout" style="position: absolute;right: 10px;bottom: 8px;" />
 				</form:form>
 				
 			</div>
@@ -335,6 +342,16 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="../js/google-map.js"></script>
 	<script src="../js/main.js"></script>
+	<script src="../js/cart-count.js"></script>
+	<script src="../js/logout.js"></script>
+	
+	<!-- prevent the form auto-submit when page is reload  -->
+	<script>
+		if ( window.history.replaceState ) {
+		  window.history.replaceState( null, null, window.location.href );
+		}
+	</script>
+	
 
 </body>
 </html>
