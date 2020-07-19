@@ -86,14 +86,17 @@
 					<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
 					<security:authorize access="hasRole('ADMIN')">
 						<li class="nav-item"><a	href="${pageContext.request.contextPath}/employee/list"	class="nav-link">Admin</a></li>
+						<li class="nav-item"><a	href="${pageContext.request.contextPath}/booking/list"	class="nav-link">Booking</a></li>
 					</security:authorize>
-					<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
-					<li class="nav-item cart">
-						<a class="nav-link" href="${pageContext.request.contextPath}/online/cart">
-							<span class="glyphicon glyphicon-shopping-cart"></span> cart <span id="cart-count">0</span>
-						</a>
-					</li>															
-					<li class="nav-item cta"><a	href="${pageContext.request.contextPath}/booking/tableBooking" class="nav-link">Book a table</a></li>
+					<security:authorize access="hasRole('USER')">
+						<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
+						<li class="nav-item cart">
+							<a class="nav-link" href="${pageContext.request.contextPath}/online/cart">
+								<span class="glyphicon glyphicon-shopping-cart"></span> cart <span id="cart-count">0</span>
+							</a>
+						</li>															
+						<li class="nav-item cta"><a	href="${pageContext.request.contextPath}/booking/tableBooking" class="nav-link">Book a table</a></li>
+					</security:authorize>
 				</ul>
 				
 				<form:form action="${pageContext.request.contextPath}/logout" method="POST">

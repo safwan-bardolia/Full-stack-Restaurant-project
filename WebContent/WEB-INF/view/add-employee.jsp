@@ -86,8 +86,7 @@
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/employee/list" class="nav-link">Admin</a></li>
-					<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
-					<li class="nav-item cta"><a	href="${pageContext.request.contextPath}/booking/tableBooking" class="nav-link">Book a table</a></li>
+					<li class="nav-item"><a	href="${pageContext.request.contextPath}/booking/list"	class="nav-link">Booking</a></li>
 				</ul>
 				
 				<form:form action="${pageContext.request.contextPath}/logout" method="POST">

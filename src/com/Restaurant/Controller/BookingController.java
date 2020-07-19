@@ -1,5 +1,7 @@
 package com.Restaurant.Controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,12 @@ public class BookingController {
 		bookingService.saveBooking(booking);
 		
 		return "redirect:/";
+	}
+	
+	@GetMapping("/list")
+	public String bookingList(Model model) {
+		List<Booking> bookings = bookingService.getBookings();
+		model.addAttribute("bookings", bookings);
+		return "list-booking";
 	}
 }

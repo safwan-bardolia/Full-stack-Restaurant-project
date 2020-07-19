@@ -32,6 +32,7 @@
   <security:intercept-url pattern="/signup" access="permitAll" />
   <security:intercept-url pattern="/validateSignup" access="permitAll" />
   <security:intercept-url pattern="/employee/*" access="hasRole('ADMIN')" />
+  <security:intercept-url pattern="/booking/list" access="hasRole('ADMIN')" />
   <security:intercept-url pattern="/**" access="isAuthenticated()" />
   <security:form-login
   	login-page="/loginPage"

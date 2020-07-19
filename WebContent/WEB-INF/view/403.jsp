@@ -8,5 +8,6 @@
 </head>
 <body>
  <h1>you are unauthorized to access this resource</h1>
+ <p><a href="${pageContext.request.contextPath}/">go to home</a></p>
 </body>
 </html>

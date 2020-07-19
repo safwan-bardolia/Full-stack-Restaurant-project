@@ -1,5 +1,7 @@
 package com.Restaurant.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,5 +19,11 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public void saveBooking(Booking booking) {
 		bookingDAO.saveBooking(booking);
+	}
+
+	@Transactional
+	@Override
+	public List<Booking> getBookings() {
+		return bookingDAO.getBookings();
 	}
 }

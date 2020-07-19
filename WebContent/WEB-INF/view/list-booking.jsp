@@ -91,8 +91,8 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Admin</a></li>
-					<li class="nav-item"><a	href="${pageContext.request.contextPath}/booking/list"	class="nav-link">Booking</a></li>
+					<li class="nav-item"><a	href="${pageContext.request.contextPath}/employee/list"	class="nav-link">Admin</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">Booking</a></li>
 				</ul>
 
 				<form:form action="${pageContext.request.contextPath}/logout" method="POST">
@@ -112,10 +112,10 @@
 			<div
 				class="row no-gutters slider-text align-items-end justify-content-center">
 				<div class="col-md-9 ftco-animate text-center mb-4">
-					<h1 class="mb-2 bread">Employee Directory</h1>
+					<h1 class="mb-2 bread">Booking Directory</h1>
 					<p class="breadcrumbs">
 						<span class="mr-2"><a href="${pageContext.request.contextPath}/">Home <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>Admin <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>Booking <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
 				</div>
@@ -131,50 +131,33 @@
 					<div class="py-md-5">
 						<div class="heading-section ftco-animate mb-5">
 							<span class="subheading">See a Directory</span>
-							<h2 class="mb-4">Employee List</h2>
+							<h2 class="mb-4">Booking List</h2>
 							<table class="table table-bordered" id="datatable">
 								<thead>
 									<tr class="thead-dark">
 										<th>Name</th>
 										<th>email</th>
-										<th>age</th>
-										<th>city</th>
-										<th>Edit</th>
-										<th>Delete</th>
+										<th>phone</th>
+										<th>date</th>
+										<th>time</th>
+										<th>person</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${employees}" var="employee">
-
-										<c:url var="editLink" value="edit">
-											<!-- means employee/edit  -->
-											<!-- passing an employee id with url  -->
-											<c:param name="employeeId" value="${employee.id}"></c:param>
-										</c:url>
-
-										<c:url var="deleteLink" value="delete">
-											<c:param name="employeeId" value="${employee.id}"></c:param>
-										</c:url>
+									<c:forEach items="${bookings}" var="booking">
 
 										<tr>
-											<td><c:out value="${employee.name}"></c:out></td>
-											<td><c:out value="${employee.email}"></c:out></td>
-											<td><c:out value="${employee.age}"></c:out></td>
-											<td><c:out value="${employee.city}"></c:out></td>
-											<td><button class="btn btn-info"
-													onclick="window.location.href='${editLink}'">Edit</button></td>
-											<td><button class="btn btn-danger"
-													onclick="window.location.href='${deleteLink}'">Delete</button></td>
+											<td><c:out value="${booking.name}"></c:out></td>
+											<td><c:out value="${booking.email}"></c:out></td>
+											<td><c:out value="${booking.phone}"></c:out></td>
+											<td><c:out value="${booking.date}"></c:out></td>
+											<td><c:out value="${booking.time}"></c:out></td>
+											<td><c:out value="${booking.person}"></c:out></td>
 										</tr>
 
 									</c:forEach>
 								</tbody>
 							</table>
-							<div>
-								<button class="btn btn-primary"
-									onclick="window.location.href='addEmployee'">Add
-									Employee</button>
-							</div>
 
 						</div>
 					</div>

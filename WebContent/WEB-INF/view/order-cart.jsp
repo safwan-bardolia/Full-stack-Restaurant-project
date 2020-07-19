@@ -101,9 +101,6 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/#about" class="nav-link">About</a></li>
-					<security:authorize access="hasRole('ADMIN')">
-						<li class="nav-item"><a	href="${pageContext.request.contextPath}/employee/list"	class="nav-link">Admin</a></li>
-					</security:authorize>					
 					<li class="nav-item"><a	href="${pageContext.request.contextPath}/online/onlineOrdering" class="nav-link">Order Online</a></li>
 					<li class="nav-item cart">
 						<a class="nav-link" href="${pageContext.request.contextPath}/online/cart">
